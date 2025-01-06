@@ -2,10 +2,10 @@ import pytest
 from functools import singledispatch
 from collections.abc import Sequence
 from example_code.expression_tools import postvisitor, evaluate
-from expressions.expressions import Symbol, Number, \
+from expressions.expressionscore import Symbol, Number, \
     Operator, Add, Mul
 try:
-    from expressions.expressions import differentiate
+    from expressions.expressionscore import differentiate
 except ImportError:
     pass
 
@@ -93,12 +93,12 @@ def _(t1, t2):
 
 
 def test_diff_import():
-    from expressions.expressions import differentiate
+    from expressions.expressionscore import differentiate
 
 
 @pytest.fixture
 def sample_diff_set():
-    from expressions.expressions import Symbol
+    from expressions.expressionscore import Symbol
     x = Symbol('x')
     y = Symbol('y')
     tests = [(2 * x + 1, 'x', 1.5, 10, 2, 0.0 * x + 1.0 * 2 + 0.0),
@@ -118,7 +118,7 @@ def sample_diff_set():
     (2)
 ])
 def test_diff_expr_recursive(sample_diff_set, idx):
-    from expressions.expressions import differentiate
+    from expressions.expressionscore import differentiate
     from example_code.expression_tools import postvisitor
     expr, dvar, _, _, _, diff_expr = sample_diff_set[idx]
     derivative = postvisitor(expr, differentiate, var=dvar)
@@ -134,7 +134,7 @@ def test_diff_expr_recursive(sample_diff_set, idx):
     (3)
 ])
 def test_diff_val_recursive(sample_diff_set, idx):
-    from expressions.expressions import differentiate
+    from expressions.expressionscore import differentiate
     from example_code.expression_tools import postvisitor, evaluate
     expr, dvar, x, y, val, _ = sample_diff_set[idx]
     dexpr = postvisitor(expr, differentiate, var=dvar)
@@ -149,7 +149,7 @@ def test_diff_val_recursive(sample_diff_set, idx):
     (2)
 ])
 def test_diff_expr(sample_diff_set, idx):
-    from expressions.expressions import postvisitor, differentiate
+    from expressions.expressionscore import postvisitor, differentiate
     expr, dvar, _, _, _, diff_expr = sample_diff_set[idx]
     derivative = postvisitor(expr, differentiate, var=dvar)
     assert expressions_equal(derivative, diff_expr), \
@@ -164,7 +164,7 @@ def test_diff_expr(sample_diff_set, idx):
     (3)
 ])
 def test_diff_val(sample_diff_set, idx):
-    from expressions.expressions import postvisitor, differentiate
+    from expressions.expressionscore import postvisitor, differentiate
     from example_code.expression_tools import evaluate
     expr, dvar, x, y, val, _ = sample_diff_set[idx]
     dexpr = postvisitor(expr, differentiate, var=dvar)
