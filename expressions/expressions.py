@@ -1,4 +1,3 @@
-#
 from functools import singledispatch
 import numbers
 
