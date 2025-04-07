@@ -88,7 +88,7 @@ def sample_string_set():
 
 @pytest.mark.parametrize("idx, string", [
     (0, '(x + 1) ^ (y * x ^ 3) + y ^ 2 * x * 2 / y'),
-    (1, '(1 / x + 1 / y) ^ 2 + 1 + 2 * x'),
+    (1, '(1 / x + 1 / y) ^ 2 + 2 * x + 1'),
     (2, '4 * (x / y) ^ 0.5')
 ])
 def test_str_rep(sample_string_set, idx, string):
